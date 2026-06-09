@@ -49,11 +49,11 @@ function App() {
           <div className="hero__actions" aria-label="Primary links">
             <a
               className="button button--primary"
-              href="https://github.com/tomasgabrielcelano-debug/repair-shop-management-system"
+              href="https://github.com/tomasgabrielcelano-debug"
               target="_blank"
               rel="noreferrer"
             >
-              View GitHub
+              View GitHub Profile
             </a>
             <a className="button button--secondary" href="#contact">
               Contact
@@ -87,7 +87,15 @@ function App() {
                 target="_blank"
                 rel="noreferrer"
               >
-                GitHub repository
+                View Repository
+              </a>
+              <a
+                className="text-link"
+                href="https://app.techxto.ar"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Live App
               </a>
             </div>
           </div>
@@ -148,11 +156,17 @@ function App() {
           </a>
           <a
             className="button button--secondary"
-            href="https://github.com/tomasgabrielcelano-debug/repair-shop-management-system"
+            href="https://www.linkedin.com/in/tomas-celano-coronel-891668195/"
             target="_blank"
             rel="noreferrer"
           >
-            Featured Repo
+            LinkedIn
+          </a>
+          <a
+            className="button button--secondary"
+            href="mailto:tomasgabrielcelano@gmail.com"
+          >
+            Email
           </a>
         </div>
       </section>
