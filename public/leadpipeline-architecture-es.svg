@@ -1,0 +1,60 @@
+<svg width="100%" viewBox="0 0 680 350" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Arquitectura de LeadPipeline</title>
+<desc>Los canales de Meta llegan por webhooks a una API .NET 8 que clasifica mensajes, los persiste en PostgreSQL, agenda follow-ups con Hangfire y envía conversiones a la Conversions API de Meta. Un panel React con extensión de Chrome consume la API.</desc>
+<style>
+text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;}
+.title{font-size:14px;font-weight:600;}
+.sub{font-size:12px;font-weight:400;}
+.ext{fill:#f1f5f9;stroke:#cbd5e1;}
+.lp{fill:#e6f2ef;stroke:#0f766e;}
+.ext-title{fill:#1f2937;}
+.ext-sub{fill:#64748b;}
+.lp-title{fill:#0f5d56;}
+.lp-sub{fill:#0f766e;}
+.lbl{fill:#64748b;}
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+
+<rect class="ext" x="200" y="40" width="280" height="54" rx="8"/>
+<text class="title ext-title" x="340" y="64" text-anchor="middle">Canales de Meta</text>
+<text class="sub ext-sub" x="340" y="82" text-anchor="middle">WhatsApp · Messenger · Instagram</text>
+
+<line x1="340" y1="94" x2="340" y2="148" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text class="sub lbl" x="350" y="126" text-anchor="start">Webhooks · HMAC-256</text>
+
+<rect class="ext" x="40" y="150" width="170" height="54" rx="8"/>
+<text class="title ext-title" x="125" y="174" text-anchor="middle">Panel del agente</text>
+<text class="sub ext-sub" x="125" y="192" text-anchor="middle">React + ext. Chrome</text>
+
+<rect class="lp" x="255" y="150" width="170" height="54" rx="8"/>
+<text class="title lp-title" x="340" y="174" text-anchor="middle">LeadPipeline API</text>
+<text class="sub lp-sub" x="340" y="192" text-anchor="middle">.NET 8 · idempotente</text>
+
+<rect class="lp" x="470" y="150" width="170" height="54" rx="8"/>
+<text class="title lp-title" x="555" y="174" text-anchor="middle">Clasificador</text>
+<text class="sub lp-sub" x="555" y="192" text-anchor="middle">reglas + LLM (Ollama)</text>
+
+<line x1="252" y1="177" x2="212" y2="177" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="425" y1="177" x2="468" y2="177" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<line x1="340" y1="204" x2="130" y2="248" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="340" y1="204" x2="340" y2="248" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="340" y1="204" x2="550" y2="248" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect class="ext" x="40" y="250" width="170" height="54" rx="8"/>
+<text class="title ext-title" x="125" y="274" text-anchor="middle">PostgreSQL</text>
+<text class="sub ext-sub" x="125" y="292" text-anchor="middle">leads · mensajes</text>
+
+<rect class="lp" x="255" y="250" width="170" height="54" rx="8"/>
+<text class="title lp-title" x="340" y="274" text-anchor="middle">Hangfire jobs</text>
+<text class="sub lp-sub" x="340" y="292" text-anchor="middle">follow-ups · outbox</text>
+
+<rect class="ext" x="470" y="250" width="170" height="54" rx="8"/>
+<text class="title ext-title" x="555" y="274" text-anchor="middle">Conversions API</text>
+<text class="sub ext-sub" x="555" y="292" text-anchor="middle">server-side (CAPI)</text>
+
+<rect x="40" y="326" width="12" height="12" rx="3" fill="#e6f2ef" stroke="#0f766e" stroke-width="1"/>
+<text class="sub lbl" x="58" y="336" text-anchor="start">LeadPipeline (lo que construí)</text>
+<rect x="300" y="326" width="12" height="12" rx="3" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+<text class="sub lbl" x="318" y="336" text-anchor="start">Sistemas externos / infra</text>
+</svg>
