@@ -94,7 +94,7 @@ const content: Record<Lang, Content> = {
         links: [
           {
             label: 'View Repository',
-            href: 'https://github.com/tomasgabrielcelano-debug/repair-shop-management-system',
+            href: 'https://github.com/tomascelano-dev/repair-shop-management-system',
           },
           { label: 'View Live App', href: 'https://app.techxto.ar' },
         ],
@@ -191,7 +191,7 @@ const content: Record<Lang, Content> = {
         links: [
           {
             label: 'Ver repositorio',
-            href: 'https://github.com/tomasgabrielcelano-debug/repair-shop-management-system',
+            href: 'https://github.com/tomascelano-dev/repair-shop-management-system',
           },
           { label: 'Ver app en vivo', href: 'https://app.techxto.ar' },
         ],
@@ -374,7 +374,7 @@ function App() {
           <div className="hero__actions" aria-label="Primary links">
             <a
               className="button button--primary"
-              href="https://github.com/tomasgabrielcelano-debug"
+              href="https://github.com/tomascelano-dev"
               target="_blank"
               rel="noreferrer"
             >
@@ -402,7 +402,7 @@ function App() {
         <div className="contact__links">
           <a
             className="button button--primary"
-            href="https://github.com/tomasgabrielcelano-debug"
+            href="https://github.com/tomascelano-dev"
             target="_blank"
             rel="noreferrer"
           >
