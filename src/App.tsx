@@ -16,7 +16,7 @@ type Screenshot = {
 
 type ProjectVisual =
   | { kind: 'screenshots'; items: Screenshot[] }
-  | { kind: 'diagram'; src: string; alt: string; caption: string }
+  | { kind: 'diagram'; src: string; alt: string; caption: string; screenshots?: Screenshot[] }
 
 type Project = {
   id: string
@@ -153,6 +153,18 @@ const content: Record<Lang, Content> = {
           src: '/leadpipeline-architecture.svg',
           alt: 'LeadPipeline architecture: Meta channels arrive via webhooks to a .NET 8 API that classifies messages, persists to PostgreSQL, schedules follow-ups with Hangfire and sends conversions to the Meta Conversions API.',
           caption: 'System architecture — ingestion, classification, jobs and Meta Conversions API.',
+          screenshots: [
+            {
+              src: '/screenshots/leadpipeline-pipeline.png',
+              alt: 'LeadPipeline dashboard listing inbound leads with auto-classified status (New, Curious, Quoted), follow-up state and timestamps. Names and phone numbers redacted.',
+              label: 'Lead pipeline — every WhatsApp/Instagram message ingested and auto-classified by intent.',
+            },
+            {
+              src: '/screenshots/leadpipeline-capi-events.png',
+              alt: 'Meta Events Manager showing the LeadSubmitted event Active via the Conversions API with events received from the server.',
+              label: 'Meta Events Manager — server-side LeadSubmitted conversions arriving live via the Conversions API.',
+            },
+          ],
         },
       },
     ],
@@ -250,6 +262,18 @@ const content: Record<Lang, Content> = {
           src: '/leadpipeline-architecture-es.svg',
           alt: 'Arquitectura de LeadPipeline: los canales de Meta llegan por webhooks a una API .NET 8 que clasifica mensajes, los persiste en PostgreSQL, agenda follow-ups con Hangfire y envía conversiones a la Meta Conversions API.',
           caption: 'Arquitectura del sistema — ingesta, clasificación, jobs y Meta Conversions API.',
+          screenshots: [
+            {
+              src: '/screenshots/leadpipeline-pipeline.png',
+              alt: 'Dashboard de LeadPipeline con los leads entrantes y su estado auto-clasificado (Nuevo, Curioso, Cotizado), seguimiento y fechas. Nombres y teléfonos tapados.',
+              label: 'Pipeline de leads — cada mensaje de WhatsApp/Instagram ingerido y auto-clasificado por intención.',
+            },
+            {
+              src: '/screenshots/leadpipeline-capi-events.png',
+              alt: 'Administrador de eventos de Meta mostrando el evento LeadSubmitted Activo vía la Conversions API, con eventos recibidos desde el servidor.',
+              label: 'Administrador de eventos de Meta — conversiones LeadSubmitted server-side llegando en vivo por la Conversions API.',
+            },
+          ],
         },
       },
     ],
@@ -273,10 +297,22 @@ function getInitialLang(): Lang {
 function ProjectVisualBlock({ visual }: { visual: ProjectVisual }) {
   if (visual.kind === 'diagram') {
     return (
-      <figure className="diagram">
-        <img src={visual.src} alt={visual.alt} />
-        <figcaption>{visual.caption}</figcaption>
-      </figure>
+      <>
+        <figure className="diagram">
+          <img src={visual.src} alt={visual.alt} />
+          <figcaption>{visual.caption}</figcaption>
+        </figure>
+        {visual.screenshots ? (
+          <div className="screenshots__grid">
+            {visual.screenshots.map((screenshot) => (
+              <figure key={screenshot.src}>
+                <img src={screenshot.src} alt={screenshot.alt} />
+                <figcaption>{screenshot.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        ) : null}
+      </>
     )
   }
 
