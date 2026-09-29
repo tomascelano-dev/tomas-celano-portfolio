@@ -74,8 +74,8 @@ const content: Record<Lang, Content> = {
     switchAriaLabel: 'Cambiar a español',
     hero: {
       eyebrow: 'Tomas Celano',
-      title: 'Automation / Backend / Fullstack Jr Developer',
-      copy: 'I build internal tools, APIs and automation systems that help businesses organize workflows, reduce manual work and manage operational data. Two of them run in production today.',
+      title: 'Backend Developer · Automation & AI',
+      copy: 'I build APIs, internal tools and AI integrations with .NET and Python, mostly for small businesses that run on WhatsApp and spreadsheets. My usual pattern: a model reads the messy input, tested code makes the decisions.',
       githubBtn: 'View GitHub Profile',
       contactBtn: 'Contact',
       previewAlt: 'RepairShop Management System dashboard preview',
@@ -127,9 +127,37 @@ const content: Record<Lang, Content> = {
         },
       },
       {
+        id: 'precios-mcp',
+        eyebrow: 'Project · AI / MCP',
+        badge: 'Open source',
+        title: 'precios-mcp',
+        summary:
+          "Multi-tenant service that turns messy wholesale supplier lists into WhatsApp price lists with each store's markup applied. One core behind two doors: a REST API for n8n and an MCP server, so Claude can use it as a set of tools.",
+        problemHeading: 'What problem it solves',
+        problem:
+          'A phone retailer gets several supplier lists a day as WhatsApp text, PDFs or photos, full of typos, abbreviated colours and one price for several variants, and every line has to be repriced before it reaches customers. An LLM reads that mess well but cannot be trusted with prices. So Claude only structures the list through an MCP tool, and everything that touches money — best cost across suppliers, markup, battery surcharge, warranty rules, checks like a bulk price higher than the unit price — is deterministic code with 23 tests, including integration tests against PostgreSQL.',
+        links: [{ label: 'View Repository', href: 'https://github.com/tomascelano-dev/precios-mcp' }],
+        stack: [
+          'Python 3.11',
+          'FastAPI',
+          'MCP Python SDK 2.x',
+          'PostgreSQL',
+          'pytest · 23 tests',
+          'GitHub Actions CI',
+          'Docker',
+          'n8n',
+        ],
+        visual: {
+          kind: 'diagram',
+          src: '/precios-mcp-architecture.svg',
+          alt: 'precios-mcp architecture: Claude structures supplier lists and loads them through an MCP tool, n8n uses the same service over REST, and a FastAPI service with a tested pricing core stores lists in PostgreSQL and produces WhatsApp price lists and alerts.',
+          caption: 'Two doors, one core — Claude structures the list, tested code sets the prices.',
+        },
+      },
+      {
         id: 'leadpipeline',
         eyebrow: 'Project',
-        badge: 'In production',
+        badge: 'Ran in production',
         title: 'LeadPipeline',
         summary:
           'Lead capture and CRM engine for businesses that sell and support over WhatsApp and Instagram. It ingests every inbound message, auto-classifies intent and lead status, schedules follow-ups, and reports purchase conversions back to Meta Ads.',
@@ -137,7 +165,7 @@ const content: Record<Lang, Content> = {
         problem:
           'A business that sells over WhatsApp and Instagram loses money two ways: messages pile up with no order so hot leads go cold, and ad spend is optimized blindly because Meta only sees clicks, not who actually bought. LeadPipeline ingests and classifies every message, schedules automatic follow-ups, and sends server-side conversions back to Meta — with ad attribution — so the algorithm learns to find real buyers.',
         links: [],
-        note: 'Running in production for a real business. Source is private (Meta tokens, secrets and customer data), so the repository is not public.',
+        note: 'Ran in production for a real business. The source is private (Meta tokens, secrets and customer data), so the repository is not public.',
         stack: [
           '.NET 8',
           'Clean Architecture',
@@ -162,15 +190,63 @@ const content: Record<Lang, Content> = {
             {
               src: '/screenshots/leadpipeline-capi-events.png',
               alt: 'Meta Events Manager showing the LeadSubmitted event Active via the Conversions API with events received from the server.',
-              label: 'Meta Events Manager — server-side LeadSubmitted conversions arriving live via the Conversions API.',
+              label: 'Meta Events Manager — server-side LeadSubmitted conversions received through the Conversions API while it was in production.',
             },
           ],
+        },
+      },
+      {
+        id: 'tienda',
+        eyebrow: 'Client work',
+        badge: 'Real client',
+        title: 'E-commerce toolchain for a phone retailer',
+        summary:
+          'Online store for a phone and accessories retailer with more than one branch, and the Python toolchain around it: the catalogue, product photos, blog posts and social media stories are generated from data instead of edited by hand.',
+        problemHeading: 'What problem it solves',
+        problem:
+          "The owner's stock export has no prices or categories, and prices arrive in batches over chat. Idempotent scripts rebuild the WooCommerce catalogue from scratch on every batch — cleaning names, generating SKUs, grouping products into price families, deciding what gets published — and audit it against Google Merchant Center requirements. Product photos get their background removed and are converted to WebP. The same product data feeds a generator of animated Instagram stories and carousels: five background systems and six layouts that rotate so two neighbouring stories never look alike.",
+        links: [],
+        note: 'Client project: the store and the code are not linked for confidentiality.',
+        stack: [
+          'Python',
+          'WooCommerce · WordPress',
+          'Pillow + NumPy',
+          'rembg',
+          'ffmpeg',
+          'Google Merchant Center',
+          'Matomo',
+        ],
+        visual: {
+          kind: 'diagram',
+          src: '/screenshots/stories-strip.jpg',
+          alt: 'Five animated Instagram stories generated by code for new phone models, each with a different layout and background.',
+          caption: 'Stories generated by code — one system, rotating backgrounds and layouts.',
+        },
+      },
+      {
+        id: 'pautas',
+        eyebrow: 'Internal tool',
+        badge: 'In use',
+        title: 'Subtitle plan generator for a video agency',
+        summary:
+          'Python CLI that turns a raw talking-head video into a timed subtitle plan for editors: it transcribes the audio, decides where each caption goes and which words get highlighted, and outputs a spreadsheet plus overlay guides to use in Premiere.',
+        problemHeading: 'What problem it solves',
+        problem:
+          "Every client of the agency has its own caption system — typefaces, sizes, line positions, how blocks stack — and laying it out by hand for each video is slow and inconsistent. The tool keeps each client's format as data, a JSON file of measured values, so a new client means a new JSON, not new code. It transcribes with faster-whisper, measures text with the real fonts to respect safe-area widths, detects the speaker's face with OpenCV so captions stay off it, and writes the plan to Excel. Editorial decisions live in a per-video overrides file, which makes every result reproducible. I still use it on client work.",
+        links: [],
+        note: 'Internal tool: the code is not public because it contains client formats.',
+        stack: ['Python', 'faster-whisper', 'OpenCV', 'Pillow + NumPy', 'openpyxl', 'ffmpeg'],
+        visual: {
+          kind: 'diagram',
+          src: '/pautas-pipeline.svg',
+          alt: "Pipeline: a raw video is transcribed and measured, a layout engine combines that with the client's format and per-video overrides, and outputs a timed Excel plan, overlay guides and preview frames.",
+          caption: "From raw video to a timed plan — the client's format is data, not code.",
         },
       },
     ],
     contact: {
       eyebrow: 'Contact',
-      heading: 'Available for junior backend, automation and fullstack roles.',
+      heading: 'Available for junior and semi-senior backend, automation and AI roles.',
       github: 'GitHub Profile',
       linkedin: 'LinkedIn',
       email: 'Email',
@@ -183,8 +259,8 @@ const content: Record<Lang, Content> = {
     switchAriaLabel: 'Switch to English',
     hero: {
       eyebrow: 'Tomas Celano',
-      title: 'Desarrollador Jr de Automatización / Backend / Fullstack',
-      copy: 'Construyo herramientas internas, APIs y sistemas de automatización que ayudan a los negocios a ordenar sus flujos de trabajo, reducir el trabajo manual y gestionar datos operativos. Dos de ellos hoy están en producción.',
+      title: 'Desarrollador Backend · Automatización e IA',
+      copy: 'Construyo APIs, herramientas internas e integraciones con IA en .NET y Python, casi siempre para negocios chicos que funcionan con WhatsApp y planillas. Mi patrón de siempre: un modelo lee lo desordenado y el código con tests toma las decisiones.',
       githubBtn: 'Ver perfil de GitHub',
       contactBtn: 'Contacto',
       previewAlt: 'Vista previa del dashboard de RepairShop Management System',
@@ -236,9 +312,37 @@ const content: Record<Lang, Content> = {
         },
       },
       {
+        id: 'precios-mcp',
+        eyebrow: 'Proyecto · IA / MCP',
+        badge: 'Código abierto',
+        title: 'precios-mcp',
+        summary:
+          'Servicio multi-tenant que convierte las listas mayoristas desordenadas de los proveedores en listas de precios para WhatsApp, con el markup de cada negocio. Un mismo núcleo con dos puertas: una API REST para n8n y un servidor MCP, para que Claude lo use como herramientas.',
+        problemHeading: 'Qué problema resuelve',
+        problem:
+          'Una casa de celulares recibe varias listas de proveedores por día en texto de WhatsApp, PDF o foto, con typos, colores abreviados y un precio para varias variantes, y cada línea hay que recalcularla antes de que llegue al cliente. Un LLM lee bien ese desorden, pero no se le pueden confiar los precios. Por eso Claude solo estructura la lista a través de una tool MCP, y todo lo que toca plata —el mejor costo entre proveedores, el markup, el recargo por batería, las reglas de garantía, controles como un precio por cantidad más caro que el unitario— es código determinístico con 23 tests, incluidos tests de integración contra PostgreSQL.',
+        links: [{ label: 'Ver repositorio', href: 'https://github.com/tomascelano-dev/precios-mcp' }],
+        stack: [
+          'Python 3.11',
+          'FastAPI',
+          'MCP Python SDK 2.x',
+          'PostgreSQL',
+          'pytest · 23 tests',
+          'CI con GitHub Actions',
+          'Docker',
+          'n8n',
+        ],
+        visual: {
+          kind: 'diagram',
+          src: '/precios-mcp-architecture-es.svg',
+          alt: 'Arquitectura de precios-mcp: Claude estructura las listas de los proveedores y las carga con una tool MCP, n8n usa el mismo servicio por REST, y un servicio FastAPI con un núcleo de precios testeado guarda las listas en PostgreSQL y arma las listas de WhatsApp y las alertas.',
+          caption: 'Dos puertas, un núcleo: Claude estructura la lista, el código con tests pone los precios.',
+        },
+      },
+      {
         id: 'leadpipeline',
         eyebrow: 'Proyecto',
-        badge: 'En producción',
+        badge: 'Estuvo en producción',
         title: 'LeadPipeline',
         summary:
           'Motor de captura de leads y CRM para negocios que venden y atienden por WhatsApp e Instagram. Ingiere cada mensaje entrante, clasifica automáticamente la intención y el estado del lead, agenda follow-ups y reporta las conversiones de compra de vuelta a Meta Ads.',
@@ -246,7 +350,7 @@ const content: Record<Lang, Content> = {
         problem:
           'Un negocio que vende por WhatsApp e Instagram pierde plata de dos maneras: los mensajes se amontonan sin orden y los leads calientes se enfrían, y la inversión en ads se optimiza a ciegas porque Meta solo ve clicks, no quién terminó comprando. LeadPipeline ingiere y clasifica cada mensaje, agenda follow-ups automáticos y envía conversiones server-side a Meta —con atribución del anuncio— para que el algoritmo aprenda a buscar compradores reales.',
         links: [],
-        note: 'En producción para un negocio real. El código es privado (tokens de Meta, secrets y datos de clientes), por eso el repositorio no es público.',
+        note: 'Estuvo en producción para un negocio real. El código es privado (tokens de Meta, secrets y datos de clientes), por eso el repositorio no es público.',
         stack: [
           '.NET 8',
           'Clean Architecture',
@@ -271,15 +375,63 @@ const content: Record<Lang, Content> = {
             {
               src: '/screenshots/leadpipeline-capi-events.png',
               alt: 'Administrador de eventos de Meta mostrando el evento LeadSubmitted Activo vía la Conversions API, con eventos recibidos desde el servidor.',
-              label: 'Administrador de eventos de Meta — conversiones LeadSubmitted server-side llegando en vivo por la Conversions API.',
+              label: 'Administrador de eventos de Meta — conversiones LeadSubmitted server-side recibidas por la Conversions API mientras estuvo en producción.',
             },
           ],
+        },
+      },
+      {
+        id: 'tienda',
+        eyebrow: 'Trabajo para cliente',
+        badge: 'Cliente real',
+        title: 'Herramientas para la tienda online de una casa de celulares',
+        summary:
+          'Tienda online de una casa de celulares y accesorios con más de un local, y las herramientas en Python que la rodean: el catálogo, las fotos de producto, las notas del blog y las stories para redes se generan desde los datos en vez de editarse a mano.',
+        problemHeading: 'Qué problema resuelve',
+        problem:
+          'El export de stock del dueño no trae precios ni categorías, y los precios llegan de a tandas por chat. Scripts idempotentes reconstruyen el catálogo de WooCommerce desde cero con cada tanda —limpian nombres, generan SKUs, agrupan productos en familias de precio y deciden qué se publica— y lo auditan contra los requisitos de Google Merchant Center. Las fotos de producto pasan por un recorte de fondo y se convierten a WebP. Los mismos datos alimentan un generador de stories y carruseles animados para Instagram: cinco sistemas de fondo y seis diagramaciones que rotan para que dos stories vecinas nunca se vean iguales.',
+        links: [],
+        note: 'Proyecto de un cliente: la tienda y el código no se linkean por confidencialidad.',
+        stack: [
+          'Python',
+          'WooCommerce · WordPress',
+          'Pillow + NumPy',
+          'rembg',
+          'ffmpeg',
+          'Google Merchant Center',
+          'Matomo',
+        ],
+        visual: {
+          kind: 'diagram',
+          src: '/screenshots/stories-strip.jpg',
+          alt: 'Cinco stories animadas para Instagram generadas por código para modelos nuevos de celulares, cada una con otra diagramación y otro fondo.',
+          caption: 'Stories generadas por código: un sistema, con fondos y diagramaciones que rotan.',
+        },
+      },
+      {
+        id: 'pautas',
+        eyebrow: 'Herramienta interna',
+        badge: 'En uso',
+        title: 'Generador de pautas de subtítulos para una agencia de video',
+        summary:
+          'CLI en Python que convierte un video crudo a cámara en una pauta de subtítulos timecodeada para los editores: transcribe el audio, decide dónde va cada tarjeta y qué palabras se resaltan, y entrega una planilla más guías superpuestas para usar en Premiere.',
+        problemHeading: 'Qué problema resuelve',
+        problem:
+          'Cada cliente de la agencia tiene su propio sistema de subtítulos —tipografías, tamaños, posición de los renglones, cómo se apilan los bloques— y diagramarlo a mano en cada video es lento y desparejo. La herramienta guarda el formato de cada cliente como datos, un JSON con valores medidos, así que un cliente nuevo es un JSON nuevo, no código nuevo. Transcribe con faster-whisper, mide el texto con las fuentes reales para respetar el ancho de la zona segura, detecta la cara con OpenCV para que el texto no la tape y escribe la pauta en Excel. Las decisiones editoriales van en un archivo de retoques por video, lo que hace que cada resultado sea reproducible. La sigo usando en el trabajo con clientes.',
+        links: [],
+        note: 'Herramienta interna: el código no es público porque incluye los formatos de los clientes.',
+        stack: ['Python', 'faster-whisper', 'OpenCV', 'Pillow + NumPy', 'openpyxl', 'ffmpeg'],
+        visual: {
+          kind: 'diagram',
+          src: '/pautas-pipeline-es.svg',
+          alt: 'Pipeline: el video crudo se transcribe y se mide, un motor de diagramación lo combina con el formato del cliente y los retoques del video, y entrega una pauta timecodeada en Excel, guías superpuestas y cuadros de previa.',
+          caption: 'Del video crudo a la pauta timecodeada: el formato del cliente es un dato, no código.',
         },
       },
     ],
     contact: {
       eyebrow: 'Contacto',
-      heading: 'Disponible para roles junior de backend, automatización y fullstack.',
+      heading: 'Disponible para roles junior y semi-senior de backend, automatización e IA.',
       github: 'Perfil de GitHub',
       linkedin: 'LinkedIn',
       email: 'Email',

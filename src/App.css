@@ -68,6 +68,11 @@ main {
 
 .hero h1 {
   max-width: 760px;
+  /* El overflow-wrap: anywhere global parte "Automatización" a la mitad cuando la
+     columna del hero queda angosta; en el título se prefiere achicar la letra. */
+  overflow-wrap: normal;
+  font-size: clamp(36px, 4.4vw, 60px);
+  text-wrap: balance;
 }
 
 .hero__copy {
