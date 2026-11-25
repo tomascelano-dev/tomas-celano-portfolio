@@ -85,12 +85,13 @@ const content: Record<Lang, Content> = {
       {
         id: 'repairshop',
         eyebrow: 'Featured Project',
+        badge: 'In production',
         title: 'RepairShop Management System',
         summary:
-          'Full-stack internal management system for repair shops to manage customers, devices, repair orders, inventory, payments, status history and message templates.',
+          'Multi-tenant SaaS for phone and electronics repair shops, live with public signup and monthly subscriptions. It covers the whole repair: intake with checklist and signature, estimates the customer approves from a link, parts reservation, point of sale, cash register and warranty.',
         problemHeading: 'What problem it solves',
         problem:
-          'Repair shops need a reliable way to track customers, device intake, order status, stock, payments and operational history in one place. RepairShop centralizes that workflow so teams can reduce manual tracking, keep data consistent and follow each repair from entry to delivery.',
+          'A repair shop loses money in the gaps: a repair started without an approved estimate, a part promised twice, a device handed over with a balance due, a customer calling to ask how it is going. RepairShop turns those into rules the order workflow enforces, and gives each customer a tracking link with a QR code where they follow the repair, approve the estimate and pay with Mercado Pago. Shops subscribe through Mercado Pago with signed webhooks, can issue ARCA electronic invoices with their own certificate, and their data is backed up encrypted off-site every night. 171 automated tests, including integration tests against PostgreSQL.',
         links: [
           {
             label: 'View Repository',
@@ -100,13 +101,13 @@ const content: Record<Lang, Content> = {
         ],
         stack: [
           '.NET 8 Web API',
-          'PostgreSQL',
-          'Entity Framework Core',
-          'Docker Compose',
-          'JWT Authentication',
+          'PostgreSQL · EF Core',
           'React + TypeScript',
-          'Clean Architecture',
-          'Backend tests',
+          'Multi-tenant',
+          'Mercado Pago (subscriptions, webhooks)',
+          'ARCA e-invoicing',
+          'Docker Compose · Caddy · Cloudflare',
+          '171 tests',
         ],
         visual: {
           kind: 'screenshots',
@@ -125,6 +126,29 @@ const content: Record<Lang, Content> = {
             },
           ),
         },
+      },
+      {
+        id: 'agendocita',
+        eyebrow: 'Project · SaaS',
+        badge: 'In production',
+        title: 'AgendoCita',
+        summary:
+          'Appointment and front-desk SaaS for health centres in Argentina, live with self-service signup, Mercado Pago subscriptions and automatic electronic invoicing. Built around how a physiotherapy centre really works: several patients per slot, session packages, insurers and a daily cash register.',
+        problemHeading: 'What problem it solves',
+        problem:
+          'Generic booking tools assume one patient per slot and a patient who books alone. In a physiotherapy centre the front desk books everything, a professional treats four or five patients in the same half hour, sessions come in packages or insurer orders that run out, and the day ends with a cash count. AgendoCita models that directly: capacity per slot enforced by the server, session counters that decrement on their own, insurer batches with payments and chargebacks, and a cash register per branch with an audit trail. On the commercial side a centre signs up, confirms by email, pays with Mercado Pago and gets its ARCA invoice issued automatically. Operations are part of the product: separate staging and production stacks, a least-privilege database role checked on every deploy, append-only audit and fiscal ledgers guarded by triggers, encrypted off-site backups with restore drills, and a monitor that alerts by email. Every stage ships through the same gate — a written contract, 1,600+ automated tests, mutation testing on the new controls and an independent review of the exact commit — a process I run with AI coding agents.',
+        links: [{ label: 'View Live Site', href: 'https://agendocita.com.ar' }],
+        note: 'The source is private: it handles clinical records and billing.',
+        stack: [
+          '.NET 8',
+          'PostgreSQL 16',
+          'React + TypeScript',
+          'Mercado Pago subscriptions',
+          'ARCA (WSAA / WSFEv1)',
+          'Docker Compose · nginx · Caddy',
+          'Encrypted backups · Cloudflare R2',
+          '1,600+ tests · mutation testing',
+        ],
       },
       {
         id: 'precios-mcp',
@@ -239,7 +263,7 @@ const content: Record<Lang, Content> = {
     ],
     contact: {
       eyebrow: 'Contact',
-      heading: 'Available for junior and semi-senior backend, automation and AI roles.',
+      heading: 'Available for backend, automation and AI roles, and for freelance projects.',
       github: 'GitHub Profile',
       linkedin: 'LinkedIn',
       email: 'Email',
@@ -263,12 +287,13 @@ const content: Record<Lang, Content> = {
       {
         id: 'repairshop',
         eyebrow: 'Proyecto destacado',
+        badge: 'En producción',
         title: 'RepairShop Management System',
         summary:
-          'Sistema de gestión interno full-stack para casas de reparación: gestiona clientes, equipos, órdenes de reparación, inventario, pagos, historial de estados y plantillas de mensajes.',
+          'SaaS multi-tenant para talleres de reparación de celulares y electrónica, en producción con registro público y suscripción mensual. Cubre la reparación completa: ingreso con checklist y firma, presupuestos que el cliente aprueba desde un link, reserva de repuestos, punto de venta, caja y garantías.',
         problemHeading: 'Qué problema resuelve',
         problem:
-          'Las casas de reparación necesitan una forma confiable de seguir clientes, ingreso de equipos, estado de órdenes, stock, pagos e historial operativo en un solo lugar. RepairShop centraliza ese flujo para que el equipo reduzca el seguimiento manual, mantenga los datos consistentes y siga cada reparación desde el ingreso hasta la entrega.',
+          'Un taller pierde plata en los huecos: una reparación que arranca sin presupuesto aprobado, un repuesto prometido dos veces, un equipo que se entrega con saldo pendiente, un cliente que llama para preguntar cómo va. RepairShop convierte eso en reglas que el flujo de la orden hace cumplir, y le da a cada cliente un link de seguimiento con código QR donde ve su reparación, aprueba el presupuesto y paga con Mercado Pago. Los talleres se suscriben por Mercado Pago con webhooks firmados, pueden emitir factura electrónica de ARCA con su propio certificado, y sus datos se respaldan cifrados fuera del servidor todas las noches. 171 tests automáticos, incluidos tests de integración contra PostgreSQL.',
         links: [
           {
             label: 'Ver repositorio',
@@ -278,13 +303,13 @@ const content: Record<Lang, Content> = {
         ],
         stack: [
           '.NET 8 Web API',
-          'PostgreSQL',
-          'Entity Framework Core',
-          'Docker Compose',
-          'Autenticación JWT',
+          'PostgreSQL · EF Core',
           'React + TypeScript',
-          'Clean Architecture',
-          'Tests de backend',
+          'Multi-tenant',
+          'Mercado Pago (suscripciones, webhooks)',
+          'Factura electrónica ARCA',
+          'Docker Compose · Caddy · Cloudflare',
+          '171 tests',
         ],
         visual: {
           kind: 'screenshots',
@@ -303,6 +328,29 @@ const content: Record<Lang, Content> = {
             },
           ),
         },
+      },
+      {
+        id: 'agendocita',
+        eyebrow: 'Proyecto · SaaS',
+        badge: 'En producción',
+        title: 'AgendoCita',
+        summary:
+          'SaaS de turnos y recepción para centros de salud de Argentina, en producción con alta self-service, suscripción por Mercado Pago y factura electrónica automática. Está pensado para cómo trabaja de verdad un centro de kinesiología: varios pacientes por franja, paquetes de sesiones, obras sociales y caja diaria.',
+        problemHeading: 'Qué problema resuelve',
+        problem:
+          'Las agendas genéricas suponen un paciente por turno y un paciente que reserva solo. En un centro de kinesiología todo lo carga la secretaria, un profesional atiende cuatro o cinco pacientes en la misma media hora, las sesiones vienen en paquetes u órdenes de obra social que se agotan, y el día termina con un arqueo. AgendoCita modela eso directamente: cupo por franja que hace cumplir el servidor, contadores de sesiones que se descuentan solos, lotes de obras sociales con pagos y débitos, y caja por sede con auditoría. En lo comercial, un centro se registra, confirma por mail, paga con Mercado Pago y recibe su factura de ARCA emitida automáticamente. La operación es parte del producto: stacks de staging y producción separados, un rol de base con privilegios mínimos que se controla en cada deploy, auditoría y libro fiscal de solo agregado protegidos por triggers, backups cifrados fuera del servidor con ensayos de restauración, y un monitor que avisa por mail. Cada etapa pasa por el mismo control —contrato escrito, más de 1.600 tests automáticos, tests de mutación sobre los controles nuevos y una revisión independiente del commit exacto—, un proceso que llevo adelante con agentes de IA.',
+        links: [{ label: 'Ver sitio en vivo', href: 'https://agendocita.com.ar' }],
+        note: 'El código es privado: maneja historias clínicas y facturación.',
+        stack: [
+          '.NET 8',
+          'PostgreSQL 16',
+          'React + TypeScript',
+          'Suscripciones con Mercado Pago',
+          'ARCA (WSAA / WSFEv1)',
+          'Docker Compose · nginx · Caddy',
+          'Backups cifrados · Cloudflare R2',
+          'Más de 1.600 tests · tests de mutación',
+        ],
       },
       {
         id: 'precios-mcp',
@@ -417,7 +465,7 @@ const content: Record<Lang, Content> = {
     ],
     contact: {
       eyebrow: 'Contacto',
-      heading: 'Disponible para roles junior y semi-senior de backend, automatización e IA.',
+      heading: 'Disponible para roles de backend, automatización e IA, y para proyectos freelance.',
       github: 'Perfil de GitHub',
       linkedin: 'LinkedIn',
       email: 'Email',
